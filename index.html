@@ -7,7 +7,34 @@
     <title>Todo app</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div class="Todo">
+        <div class="Todo__content">
+          <div class="Todo__title">Mes tâches</div>
+          <div class="Todo__list"></div>
+          <form class="Todo__form">
+            <div class="Todo__field">
+              <input
+                id="todoTitle"
+                class="Todo__input"
+                name="title"
+                type="text"
+                placeholder="Nom de la tâche"
+                required
+              />
+            </div>
+            <div class="Todo__action">
+              <input
+                id="todoSubmit"
+                class="Todo__submit"
+                type="submit"
+                value="Créer la tâche"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
