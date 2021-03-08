@@ -1,9 +1,38 @@
 import "./style.css";
 
-function addTodoElement(title) {
+function getTodosFromLocalStorage() {
+  const todoElements = localStorage.getItem("todoElements");
+
+  if (todoElements) {
+    return JSON.parse(todoElements);
+  }
+
+  return [];
+}
+
+function toggleTodoStatus(id) {
+  const todoElements = getTodosFromLocalStorage();
+
+  todoElements.forEach((item) => {
+    if (item.id === id) {
+      item.done = !item.done;
+    }
+  });
+
+  localStorage.setItem("todoElements", JSON.stringify(todoElements));
+}
+
+function addTodoElementToLocalStorage(id, title, done) {
+  const todoElements = getTodosFromLocalStorage();
+
+  todoElements.push({ id, title, done });
+
+  localStorage.setItem("todoElements", JSON.stringify(todoElements));
+}
+
+function addTodoElement(id, title, done) {
   // Nous récupérons l'élément qui liste toutes les tâches
   const todoList = document.getElementById("todoList");
-  const numberOfTodos = todoList.childElementCount;
 
   // Nous créons un nouvel élément qui va représenter notre tâche
   const element = document.createElement("div");
@@ -12,13 +41,20 @@ function addTodoElement(title) {
   // Nous ajoutons le label à notre tâche
   const labelElement = document.createElement("label");
   labelElement.classList.add("Todo__item-label");
-  labelElement.setAttribute("for", `todo-${numberOfTodos + 1}`);
+  labelElement.setAttribute("for", `todo-${id}`);
 
   // Nous ajoutons un checkbox à notre tâche
   const checkboxElement = document.createElement("input");
   checkboxElement.classList.add("Todo__item-checkbox");
   checkboxElement.type = "checkbox";
-  checkboxElement.id = `todo-${numberOfTodos + 1}`;
+  checkboxElement.id = `todo-${id}`;
+
+  if (done) {
+    checkboxElement.checked = true;
+  }
+
+  // Nous ajoutons un évènement pour gérer le status de la tâche
+  checkboxElement.addEventListener("change", () => toggleTodoStatus(id));
 
   labelElement.append(checkboxElement);
 
@@ -42,9 +78,24 @@ document.getElementById("todoAdd").addEventListener("submit", (event) => {
   // Nous récupérons la valeur que nous avons saisi
   const title = document.getElementById("todoTitle").value;
 
+  const todoList = document.getElementById("todoList");
+  const numberOfTodos = todoList.childElementCount;
+  const id = numberOfTodos + 1;
+
   // Nous appelons la fonction qui ajoute une nouvelle tâche à la liste
-  addTodoElement(title);
+  addTodoElement(id, title, false);
+
+  // Nous ajoutons la nouvelle tâche au localStorage
+  addTodoElementToLocalStorage(id, title, false);
 
   // Nous réinitialisons le titre
   document.getElementById("todoTitle").value = "";
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const todoElements = getTodosFromLocalStorage();
+
+  todoElements.forEach((item) => {
+    addTodoElement(item.id, item.title, item.done);
+  });
 });
