@@ -43,6 +43,21 @@
   margin-bottom: 16px;
 }
 
+.Todo__item-label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.Todo__item-checkbox {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.Todo__item-checkbox:checked ~ .Todo__item-title {
+  text-decoration: line-through;
+}
+
 .Todo__form {
   display: flex;
   align-items: center;
