@@ -2,7 +2,81 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+.Todo {
+  display: flex;
+  justify-content: center;
+  margin: 60px 0;
+}
+
+.Todo__content {
+  width: 800px;
+  border: 1px solid #dcdee0;
+  border-radius: 4px;
+}
+
+.Todo__title {
+  padding: 10px 20px;
+  border-bottom: 1px solid #dcdee0;
+  font-size: 18px;
+}
+
+.Todo__list {
+  padding: 20px;
+}
+
+.Todo__item {
+  padding: 8px 16px;
+  border: 1px solid #c0c2c4;
+  border-radius: 4px;
+}
+
+.Todo__item:not(:last-child) {
+  margin-bottom: 16px;
+}
+
+.Todo__form {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-top: 1px solid #dcdee0;
+}
+
+.Todo__field {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.Todo__input {
+  width: 100%;
+  padding: 6px 16px;
+  border: 1px solid #c0c2c4;
+  border-radius: 4px;
+}
+
+.Todo__action {
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+.Todo__submit {
+  padding: 8px 16px;
+  background-color: #352cd3;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.Todo__submit:hover {
+  background-color: #5049db;
 }
